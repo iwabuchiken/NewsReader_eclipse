@@ -34,10 +34,13 @@
 <br/>
 
 <% @html.each do |a_tag| %>
-	<%= a_tag['href']%>
-	<%#= raw a_tag %><br/>
-	<%#= raw a_tag.to_html %><br/>
-	<%#= a_tag.content %>
+	<% if a_tag['href'].start_with?("/hl?")%>
+		<%= a_tag['href']%>
+		<%#= raw a_tag %><br/>
+		<%#= raw a_tag.to_html %><br/>
+		<%#= a_tag.content %>
+	<% end %>
+	<br/><br/>
 <% end %>
 
 <%#= @xml.to_xml %>
