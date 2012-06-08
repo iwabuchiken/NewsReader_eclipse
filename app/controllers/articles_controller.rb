@@ -1,9 +1,42 @@
+# require 'nokogiri'
+
+require 'basics'
+require 'noko_helper'
+
+# module NokoLib
+    # def get_xml_base
+      # builder = Nokogiri::XML::Builder.new do |xml|
+      # end
+#       
+      # return Nokogiri::XML(builder.to_xml)
+    # end#def get_xml_base
+# end
+
 class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
+  
+  # require NokoLib
+  # include NokoLib
+  
   def index
+    # require NokoLib
+    
     @articles = Article.all
+    
+    # # @xml_base = NokogiriHelper.get_xml_base
+    # @xml_base = get_xml_base()
+    # @xml_base = get_xml_base
 
+    #debug
+    @message = BASICS::Basic1.new.show_message("basic1")
+    # @noko_msg = NokoHelper::NokoHelper.new.show_message
+    
+    @xml_base = NokoHelper::NokoHelper.new.get_xml_base
+    @noko_node = NokoHelper::NokoHelper.new.get_node(@xml_base, "Button")
+    
+    
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @articles }
@@ -80,4 +113,21 @@ class ArticlesController < ApplicationController
       format.json { head :no_content }
     end
   end
-end
+
+  def get_xml_base
+    builder = Nokogiri::XML::Builder.new do |xml|
+    end
+    
+    return Nokogiri::XML(builder.to_xml)
+  end#def get_xml_base
+    
+end#class ArticlesController < ApplicationController
+
+# module NokoLib
+    # def get_xml_base
+      # builder = Nokogiri::XML::Builder.new do |xml|
+      # end
+#       
+      # return Nokogiri::XML(builder.to_xml)
+    # end#def get_xml_base
+# end

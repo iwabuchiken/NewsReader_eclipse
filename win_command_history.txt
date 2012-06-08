@@ -1,7 +1,7 @@
 [Set up 20120529_173711]----------------------------
-rails new EnglishReader
+rails new NewsReader
 
-cd EnglishReader
+cd NewsReader
 
 copy C:\WORKS\WORKSPACES_APTANA\ChineseReader\.project .
 
@@ -26,7 +26,7 @@ git add .
 
 git commit -a
 
-git remote add origin git@github.com:iwabuchiken/EnglishReader.git
+git remote add origin git@github.com:iwabuchiken/NewsReader.git
 
 g p origin master
 
@@ -56,106 +56,10 @@ rails generate scaffold Article hl:text src:string link:string
 
 bundle exec rake db:migrate
 
-===================================================
-[Create: Models 20120529_175608]
-rails generate scaffold WordSet en:string jp:string text_id:integer
+bundle update
 
-rails generate scaffold Text title:string text:text url:string 
+[]---------------------------
+cd C:\WORKS\WORKSPACES_APTANA\NewsReader_eclipse
 
-bundle exec rake db:migrate
-
-[gitk]
-commit
-
-push: origin
-
-push: heroku
-
-[console]
-heroku run rake db:migrate
-
-[20120530_173650]
-rails generate controller GetWords main show
-
-/================================================
-
-[rails]
-
-heroku run rake db:migrate
-
-[20120528_125705]
-rails generate migration add_title_to_items title:string
-
-rails generate migration rename_column :texts :body :text
-
-rails destroy migration rename_column
-
-bundle exec rake db:migrate
-
-rails generate migration add_text_id_to_word_sets text_id:integer
-
-rails generate controller GetWords main show
-
-rails generate migration change_string_to_text
-
-bundle exec rake db:migrate
-
-rails generate migration text_change_text_length
-
-heroku run rake db:migrate
-
-# rails destroy migration 20120528133656
-# rails destroy migration 20120528133656_text_change_text_length
-rails destroy migration text_change_text_length
-
-rails generate migration text_change_text_length
-
-bundle exec rake db:migrate
-
-[20120529_151904]
-rails generate controller Dictionary main show
-
-[]
-rails generate scaffold QA title:string content:text genre:string
-
-heroku run rake db:migrate
-
-rails generate migration add_link_to_items link:string
-
-rails destroy migration add_link_to_items
-
-rails generate migration add_link_to_qas link:string
-
-bundle exec rake db:migrate
-
-heroku run rake db:migrate
-
-heroku run rake db:rollback STEP=2
-
-heroku run rake db:migrate
-
-heroku run rake db:rollback STEP=1
-
-heroku run rake db:migrate
-
-rails generate scaffold Dummy title:string content:text genre:string
-
-bundle exec rake db:migrate
-
-heroku run rake db:migrate
-
-rails generate migration change_table_qas_qas_deprecated
-
-bundle exec rake db:migrate
-
-[20120605_180554]
-rails generate scaffold QAItem title:string link:string content:text genre:string
-
-bundle exec rake db:migrate
-
-heroku run rake db:migrate
-
-[20120605_214418]
-rails generate controller Trans main show
 
 ============EOF============
