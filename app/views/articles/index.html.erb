@@ -29,9 +29,12 @@
 <%= raw show_message "Hi" %><br/>
 <br/>
 
-<%= @html.class %>
+<%= @html.class %><br/>
+<%= @try %><br/>
+<br/>
 
 <% @html.each do |a_tag| %>
+	<%#= raw a_tag %><br/>
 	<%#= raw a_tag.to_html %><br/>
 	<%= a_tag.content %>
 <% end %>

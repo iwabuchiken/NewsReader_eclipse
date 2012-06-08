@@ -23,8 +23,12 @@ class ArticlesController < ApplicationController
     # require NokoLib
     
     @articles = Article.all
+  
+    @try = "try_nokogiri_4"
+      
+    @html = try_nokogiri_4    # Multiple pages
     
-    @html = try_nokogiri_3    # Get "a" tags
+    # @html = try_nokogiri_3    # Get "a" tags
     
     # @html = try_nokogiri_2  # Open html
     
@@ -180,6 +184,72 @@ class ArticlesController < ApplicationController
     # return a_tags
     # return doc
   end
+
+  # ============ try 4 ========================
+  def get_html_doc(url)
+    return NokoHelper::HTMLParser.new.open_html(url)
+  end#def get_html_doc(url)
+  
+  def try_nokogiri_4
+    # Url
+    url = "http://headlines.yahoo.co.jp/hl?c=soci&t=l"
+    
+    doc = get_html_doc(url)
+    
+    tags = doc.css("div ul li a")
+    
+    # Get new tags
+    url = "http://headlines.yahoo.co.jp/hl?c=soci&t=l&p=1"
+    doc = get_html_doc(url)
+    tags_2 = doc.css("div ul li a")
+    
+    # Append the new tags   => 2
+    tags_2.each do |tag|
+      tags.push(tag)
+    end
+    
+    # Get new tags
+    url = "http://headlines.yahoo.co.jp/hl?c=soci&t=l&p=2"
+    doc = get_html_doc(url)
+    tags_2 = doc.css("div ul li a")
+    
+    # Append the new tags
+    tags_2.each do |tag|
+      tags.push(tag)
+    end
+    
+    # Get new tags          => 3
+    url = "http://headlines.yahoo.co.jp/hl?c=soci&t=l&p=3"
+    doc = get_html_doc(url)
+    tags_2 = doc.css("div ul li a")
+    
+    # Append the new tags
+    tags_2.each do |tag|
+      tags.push(tag)
+    end
+
+    # # Iteration
+    # 5.times do |i|
+      # # Next page
+      # # url = "http://headlines.yahoo.co.jp/hl?c=soci&t=l&p=1"
+      # # url = "http://headlines.yahoo.co.jp/hl?c=soci&t=l&p=" + i.to_s
+      # url = "http://headlines.yahoo.co.jp/hl?c=soci&t=l&p=" + (i + 1).to_s
+#       
+      # doc = get_html_doc(url)
+#       
+      # tags_2 = doc.css("div ul li a")
+#       
+      # # Append new tags
+      # tags_2.each do |tag|
+        # tags.push(tag)
+      # end
+    # end
+      
+    
+    return tags
+    # return a_tags
+    # return doc
+  end#def try_nokogiri_4
 
 end#class ArticlesController < ApplicationController
 
