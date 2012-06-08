@@ -463,8 +463,8 @@ class ArticlesController < ApplicationController
     threads = []
     
     # Get docs
-    2.times do |i|
-    # 5.times do |i|
+    # 2.times do |i|
+    5.times do |i|
       # Get docs
       threads << Thread.start(i, url) do
         # puts "Thred #{i.to_s}: " + urls[i] 
