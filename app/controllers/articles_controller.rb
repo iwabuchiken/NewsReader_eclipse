@@ -10,9 +10,14 @@ class ArticlesController < ApplicationController
     
     @articles = Article.all
 
-    @try = "try_nokogiri_6"
+    @try = "try_nokogiri_7"
       
-    @html = try_nokogiri_6    # "href" values
+    @html = try_nokogiri_7    # "href" values
+
+
+    # @try = "try_nokogiri_6"
+#       
+    # @html = try_nokogiri_6    # "href" values
 
     # @try = "try_nokogiri_5"
 #       
@@ -326,6 +331,30 @@ class ArticlesController < ApplicationController
     # return a_tags
     # return doc
   end#def try_nokogiri_6
+
+  # ============ try 7 ========================
+  def try_nokogiri_7
+    # NodeSet
+    #tags = Nokogiri::XML::NodeSet.new
+    
+    # Thread 1
+    th1 = Thread.new do
+      tags = get_tags
+    end
+    #tags = get_tags
+    
+    # # Modify the tags
+    # tags.each do |tag|
+      # if tag['href'].start_with?("/hl?")
+#         
+      # end
+      # # tags_new
+    # end
+    
+    return tags
+    # return a_tags
+    # return doc
+  end#def try_nokogiri_7
 
 end#class ArticlesController < ApplicationController
 

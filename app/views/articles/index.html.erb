@@ -29,7 +29,7 @@
 <%= raw show_message "Hi" %><br/>
 <br/>
 
-<%= @html.class %><br/>
+@html.class => <%= @html.class %><br/>
 <%= @try %><br/>
 <br/>
 
@@ -37,6 +37,8 @@
 	<%= a_tag.content %><br/>
 <% end %>
 
+<!-- :save_with => Nokogiri::XML::Node::SaveOptions::FORMAT|AS_XML).class %><br/> -->
+<%#= a_tag.content %><br/>
 <%#= @xml.to_xml %>
 
 <%#= @xml_base.class %><br/>
