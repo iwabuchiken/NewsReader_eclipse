@@ -59,8 +59,13 @@ bundle exec rake db:migrate
 bundle update
 
 []---------------------------
+a
 cd C:\WORKS\WORKSPACES_APTANA\NewsReader_eclipse
 r s
+
+[]---------------------------
+heroku run rake db:migrate
+
 
 
 ============EOF============

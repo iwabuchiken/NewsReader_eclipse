@@ -23,6 +23,20 @@ module NokoHelper
       return Nokogiri::XML::Node.new tag_name, xml
     end#def get_node
 
-  end
-end
+    def add_child(xml, child)
+      xml.add_child(child)
+    end
+
+    def get_xml_string(xml)
+      #puts xml.to_xml
+      return xml.to_xml
+    end
+    
+    def set_attribute(node, attr_name, attr_value)
+      node[attr_name] = attr_value
+    end
+
+    
+  end#class NokoHelper
+end#module NokoHelper
   

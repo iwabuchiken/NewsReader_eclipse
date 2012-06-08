@@ -35,7 +35,7 @@ class ArticlesController < ApplicationController
     @xml_base = NokoHelper::NokoHelper.new.get_xml_base
     @noko_node = NokoHelper::NokoHelper.new.get_node(@xml_base, "Button")
     
-    
+    @xml_base_xml = NokoHelper::NokoHelper.new.get_xml_string(@xml_base)
     
     respond_to do |format|
       format.html # index.html.erb
