@@ -1,32 +1,22 @@
-# require 'nokogiri'
-
 require 'basics'
 require 'noko_helper'
-
-# module NokoLib
-    # def get_xml_base
-      # builder = Nokogiri::XML::Builder.new do |xml|
-      # end
-#       
-      # return Nokogiri::XML(builder.to_xml)
-    # end#def get_xml_base
-# end
 
 class ArticlesController < ApplicationController
   # GET /articles
   # GET /articles.json
-  
-  # require NokoLib
-  # include NokoLib
   
   def index
     # require NokoLib
     
     @articles = Article.all
 
-    @try = "try_nokogiri_5"
+    @try = "try_nokogiri_6"
       
-    @html = try_nokogiri_5    # "href" values
+    @html = try_nokogiri_6    # "href" values
+
+    # @try = "try_nokogiri_5"
+#       
+    # @html = try_nokogiri_5    # "href" values
   
     # @try = "try_nokogiri_4"
 #       
@@ -37,26 +27,6 @@ class ArticlesController < ApplicationController
     # @html = try_nokogiri_2  # Open html
     
     # @xml = try_nokogiri_1  
-    
-    # # @xml_base = NokogiriHelper.get_xml_base
-    # @xml_base = get_xml_base()
-    # @xml_base = get_xml_base
-
-    # #debug
-    # @message = BASICS::Basic1.new.show_message("basic1")
-    # # @noko_msg = NokoHelper::NokoHelper.new.show_message
-#     
-    # @xml_base = NokoHelper::NokoHelper.new.get_xml_base
-    # @noko_node = NokoHelper::NokoHelper.new.get_node(@xml_base, "Button")
-#     
-    # @xml_base_xml = NokoHelper::NokoHelper.new.get_xml_string(@xml_base)
-#     
-    # # Add sub
-    # NokoHelper::NokoHelper.new.add_child(@xml_base_xml, @noko_node)
-    
-    # Add attributes
-    # NokoHelper::NokoHelper.new.set_attribute(@noko_node, "")
-    
     
     respond_to do |format|
       format.html # index.html.erb
@@ -299,6 +269,63 @@ class ArticlesController < ApplicationController
     # return doc
   end#def try_nokogiri_5
 
+  # ============ try 6 ========================
+  def get_tags()
+    # Url
+    url = "http://headlines.yahoo.co.jp/hl?c=soci&t=l"
+    
+    doc = get_html_doc(url)
+    
+    tags = doc.css("div ul li a")
+    
+    # Get new tags
+    url = "http://headlines.yahoo.co.jp/hl?c=soci&t=l&p=1"
+    doc = get_html_doc(url)
+    tags_2 = doc.css("div ul li a")
+    
+    # Append the new tags   => 2
+    tags_2.each do |tag|
+      tags.push(tag)
+    end
+    
+    # Get new tags
+    url = "http://headlines.yahoo.co.jp/hl?c=soci&t=l&p=2"
+    doc = get_html_doc(url)
+    tags_2 = doc.css("div ul li a")
+    
+    # Append the new tags
+    tags_2.each do |tag|
+      tags.push(tag)
+    end
+    
+    # Get new tags          => 3
+    url = "http://headlines.yahoo.co.jp/hl?c=soci&t=l&p=3"
+    doc = get_html_doc(url)
+    tags_2 = doc.css("div ul li a")
+    
+    # Append the new tags
+    tags_2.each do |tag|
+      tags.push(tag)
+    end
+  
+    return tags    
+  end#def get_tags()
+  
+  def try_nokogiri_6
+    tags = get_tags
+    
+    # Modify the tags
+    tags.each do |tag|
+      if tag['href'].start_with?("/hl?")
+        
+      end
+      # tags_new
+    end
+    
+    return tags
+    # return a_tags
+    # return doc
+  end#def try_nokogiri_6
 
 end#class ArticlesController < ApplicationController
 
