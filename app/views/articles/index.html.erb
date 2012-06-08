@@ -26,7 +26,18 @@
 
 <%= link_to 'New Article', new_article_path %>
 
-<%= raw show_message "Hi" %>
-<%= @xml_base.class %><br/>
-<%= @noko_node.class %><br/>
-<%= raw @xml_base_xml %><br/>
+<%= raw show_message "Hi" %><br/>
+<br/>
+
+<%= @html.class %>
+
+<% @html.each do |a_tag| %>
+	<%#= raw a_tag.to_html %><br/>
+	<%= a_tag.content %>
+<% end %>
+
+<%#= @xml.to_xml %>
+
+<%#= @xml_base.class %><br/>
+<%#= @noko_node.class %><br/>
+<%#= raw @xml_base_xml %><br/>

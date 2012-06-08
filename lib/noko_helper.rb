@@ -1,4 +1,5 @@
 require 'nokogiri'
+require 'open-uri'
 
 module NokoHelper
   class NokoHelper
@@ -12,10 +13,12 @@ module NokoHelper
     end
     
     def get_xml_base
-      builder = Nokogiri::XML::Builder.new do |xml|
-      end
+            # builder = Nokogiri::XML::Builder.new do |xml|
+      # end
+      
+      return Nokogiri::XML::Builder.new do |xml| end
   
-      return Nokogiri::XML(builder.to_xml)
+      # return Nokogiri::XML(builder.to_xml)
 
     end#def get_xml_base
     
@@ -25,6 +28,10 @@ module NokoHelper
 
     def add_child(xml, child)
       xml.add_child(child)
+    end
+
+    def add_next_sibling(xml, child)
+      xml.add_next_sibling(child)
     end
 
     def get_xml_string(xml)
@@ -41,5 +48,12 @@ module NokoHelper
     end
     
   end#class NokoHelper
+  
+  #====================================
+  class HTMLParser
+    def open_html(url)
+      return Nokogiri::HTML(open(url))
+    end
+  end#class HTMLParser
 end#module NokoHelper
   
