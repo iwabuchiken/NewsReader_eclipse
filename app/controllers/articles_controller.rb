@@ -287,26 +287,26 @@ class ArticlesController < ApplicationController
     tags_2.each do |tag|
       tags.push(tag)
     end
-    
-    # Get new tags
-    url = "http://headlines.yahoo.co.jp/hl?c=soci&t=l&p=2"
-    doc = get_html_doc(url)
-    tags_2 = doc.css("div ul li a")
-    
-    # Append the new tags
-    tags_2.each do |tag|
-      tags.push(tag)
-    end
-    
-    # Get new tags          => 3
-    url = "http://headlines.yahoo.co.jp/hl?c=soci&t=l&p=3"
-    doc = get_html_doc(url)
-    tags_2 = doc.css("div ul li a")
-    
-    # Append the new tags
-    tags_2.each do |tag|
-      tags.push(tag)
-    end
+#     
+    # # Get new tags
+    # url = "http://headlines.yahoo.co.jp/hl?c=soci&t=l&p=2"
+    # doc = get_html_doc(url)
+    # tags_2 = doc.css("div ul li a")
+#     
+    # # Append the new tags
+    # tags_2.each do |tag|
+      # tags.push(tag)
+    # end
+#     
+    # # Get new tags          => 3
+    # url = "http://headlines.yahoo.co.jp/hl?c=soci&t=l&p=3"
+    # doc = get_html_doc(url)
+    # tags_2 = doc.css("div ul li a")
+#     
+    # # Append the new tags
+    # tags_2.each do |tag|
+      # tags.push(tag)
+    # end
   
     return tags    
   end#def get_tags()
@@ -314,13 +314,13 @@ class ArticlesController < ApplicationController
   def try_nokogiri_6
     tags = get_tags
     
-    # Modify the tags
-    tags.each do |tag|
-      if tag['href'].start_with?("/hl?")
-        
-      end
-      # tags_new
-    end
+    # # Modify the tags
+    # tags.each do |tag|
+      # if tag['href'].start_with?("/hl?")
+#         
+      # end
+      # # tags_new
+    # end
     
     return tags
     # return a_tags
