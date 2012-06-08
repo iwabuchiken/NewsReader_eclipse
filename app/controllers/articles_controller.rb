@@ -14,6 +14,7 @@ class ArticlesController < ApplicationController
       
     @html = try_nokogiri_9    # Use thread => 5 pages
 
+
     # @try = "try_nokogiri_8"
 #       
     # @html = try_nokogiri_8    # Use thread => 2 pages
