@@ -60,6 +60,7 @@ bundle update
 
 []---------------------------
 cd C:\WORKS\WORKSPACES_APTANA\NewsReader_eclipse
+r s
 
 
 ============EOF============
