@@ -10,9 +10,13 @@ class ArticlesController < ApplicationController
     
     @articles = Article.all
 
-    @try = "try_nokogiri_9"
+    @try = "try_nokogiri_10"
       
-    @html = try_nokogiri_9    # Use thread => 5 pages
+    @html = try_nokogiri_10    # Use thread => 5 pages
+
+    # @try = "try_nokogiri_9"
+#       
+    # @html = try_nokogiri_9    # Use thread => 5 pages
 
 
     # @try = "try_nokogiri_8"
@@ -439,6 +443,46 @@ class ArticlesController < ApplicationController
     
   end#def try_nokogiri_9
   
+  # ============ try 10 ========================
+  def try_nokogiri_10
+    # Get params
+    genre = params['genre']
+    
+    # Urls
+    if genre != nil
+      # url = "http://headlines.yahoo.co.jp/hl?c=soci&t=l&p="
+      url = "http://headlines.yahoo.co.jp/hl?c=#{genre}&t=l&p="
+    else
+      url = "http://headlines.yahoo.co.jp/hl?c=soci&t=l&p="
+    end
+    
+    # HTML docs
+    docs = []
+    
+    # Thread array
+    threads = []
+    
+    # Get docs
+    2.times do |i|
+    # 5.times do |i|
+      # Get docs
+      threads << Thread.start(i, url) do
+        # puts "Thred #{i.to_s}: " + urls[i] 
+        # docs[i] = Nokogiri::HTML(open(urls[i]))
+        docs[i] = Nokogiri::HTML(open(url + (i + 1).to_s))
+      end
+    
+      # Join
+      threads.each do |t|
+        t.join
+      end
+    end
+    
+    # Return
+    return docs
+    
+  end#def try_nokogiri_10
+
 end#class ArticlesController < ApplicationController
 
 # module NokoLib

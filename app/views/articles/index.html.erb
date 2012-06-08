@@ -1,5 +1,21 @@
 <h1>Listing articles</h1>
 
+<div>
+	<%= link_to 'Society', 
+			:controller => "articles", 
+			:action => "index", 
+			:genre => "soci" %> |
+	<%= link_to 'Econ', 
+			:controller => "articles", 
+			:action => "index", 
+			:genre => "bus_all" %> | 
+	<%= link_to 'Overseas', 
+			:controller => "articles", 
+			:action => "index", 
+			:genre => "int" %>
+</div>
+<hr/>
+
 <table>
   <tr>
     <th>Hl</th>
