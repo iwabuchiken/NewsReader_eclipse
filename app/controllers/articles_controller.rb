@@ -37,6 +37,13 @@ class ArticlesController < ApplicationController
     
     @xml_base_xml = NokoHelper::NokoHelper.new.get_xml_string(@xml_base)
     
+    # Add sub
+    NokoHelper::NokoHelper.new.add_child(@xml_base_xml, @noko_node)
+    
+    # Add attributes
+    # NokoHelper::NokoHelper.new.set_attribute(@noko_node, "")
+    
+    
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @articles }

@@ -36,6 +36,9 @@ module NokoHelper
       node[attr_name] = attr_value
     end
 
+    def add_child(xml, child)
+      xml.add_child(child)
+    end
     
   end#class NokoHelper
 end#module NokoHelper
