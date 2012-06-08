@@ -34,9 +34,10 @@
 <br/>
 
 <% @html.each do |a_tag| %>
+	<%= a_tag['href']%>
 	<%#= raw a_tag %><br/>
 	<%#= raw a_tag.to_html %><br/>
-	<%= a_tag.content %>
+	<%#= a_tag.content %>
 <% end %>
 
 <%#= @xml.to_xml %>

@@ -23,11 +23,15 @@ class ArticlesController < ApplicationController
     # require NokoLib
     
     @articles = Article.all
-  
-    @try = "try_nokogiri_4"
+
+    @try = "try_nokogiri_5"
       
-    @html = try_nokogiri_4    # Multiple pages
-    
+    @html = try_nokogiri_5    # "href" values
+  
+    # @try = "try_nokogiri_4"
+#       
+    # @html = try_nokogiri_4    # Multiple pages
+#     
     # @html = try_nokogiri_3    # Get "a" tags
     
     # @html = try_nokogiri_2  # Open html
@@ -250,6 +254,51 @@ class ArticlesController < ApplicationController
     # return a_tags
     # return doc
   end#def try_nokogiri_4
+
+  # ============ try 5 ========================
+  def try_nokogiri_5
+    # Url
+    url = "http://headlines.yahoo.co.jp/hl?c=soci&t=l"
+    
+    doc = get_html_doc(url)
+    
+    tags = doc.css("div ul li a")
+    
+    # Get new tags
+    url = "http://headlines.yahoo.co.jp/hl?c=soci&t=l&p=1"
+    doc = get_html_doc(url)
+    tags_2 = doc.css("div ul li a")
+    
+    # Append the new tags   => 2
+    tags_2.each do |tag|
+      tags.push(tag)
+    end
+    
+    # Get new tags
+    url = "http://headlines.yahoo.co.jp/hl?c=soci&t=l&p=2"
+    doc = get_html_doc(url)
+    tags_2 = doc.css("div ul li a")
+    
+    # Append the new tags
+    tags_2.each do |tag|
+      tags.push(tag)
+    end
+    
+    # Get new tags          => 3
+    url = "http://headlines.yahoo.co.jp/hl?c=soci&t=l&p=3"
+    doc = get_html_doc(url)
+    tags_2 = doc.css("div ul li a")
+    
+    # Append the new tags
+    tags_2.each do |tag|
+      tags.push(tag)
+    end
+    
+    return tags
+    # return a_tags
+    # return doc
+  end#def try_nokogiri_5
+
 
 end#class ArticlesController < ApplicationController
 
