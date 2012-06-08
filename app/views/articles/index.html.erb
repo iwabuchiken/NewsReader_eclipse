@@ -33,10 +33,14 @@
 <%= @try %><br/>
 <br/>
 
-<% @html.each do |a_tag| %>
-	<%= a_tag.content %><br/>
+<% @html.each do |item| %>
+	<%= raw item.to_html %>
 <% end %>
+<%# @html.each do |a_tag| %>
+	<%#= a_tag.content %><br/>
+<%# end %>
 
+<%#= raw @html.to_html %>
 <!-- :save_with => Nokogiri::XML::Node::SaveOptions::FORMAT|AS_XML).class %><br/> -->
 <%#= a_tag.content %><br/>
 <%#= @xml.to_xml %>

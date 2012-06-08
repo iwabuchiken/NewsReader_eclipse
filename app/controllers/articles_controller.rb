@@ -10,9 +10,13 @@ class ArticlesController < ApplicationController
     
     @articles = Article.all
 
-    @try = "try_nokogiri_7"
+    @try = "try_nokogiri_8"
       
-    @html = try_nokogiri_7    # "href" values
+    @html = try_nokogiri_8    # "href" values
+
+    # @try = "try_nokogiri_7"
+#       
+    # @html = try_nokogiri_7    # "href" values
 
 
     # @try = "try_nokogiri_6"
@@ -356,6 +360,41 @@ class ArticlesController < ApplicationController
     # return doc
   end#def try_nokogiri_7
 
+  # ============ try 8 ========================
+  def try_nokogiri_8
+    # Urls
+    urls = [
+      "http://headlines.yahoo.co.jp/hl?c=soci&t=l",
+      "http://headlines.yahoo.co.jp/hl?c=soci&t=l&p=1"
+    ]
+    
+    # HTML docs
+    docs = []
+    
+    # Thread array
+    threads = []
+    
+    # Get docs
+    2.times do |i|
+      # Get docs
+      threads << Thread.start(i, urls) do
+        # puts "Thred #{i.to_s}: " + urls[i] 
+        docs[i] = Nokogiri::HTML(open(urls[i]))
+      end
+    
+      # Join
+      threads.each do |t|
+        t.join
+      end
+    end
+    
+    # Return
+    return docs
+    # return docs
+    
+  end#def try_nokogiri_8
+
+  
 end#class ArticlesController < ApplicationController
 
 # module NokoLib
