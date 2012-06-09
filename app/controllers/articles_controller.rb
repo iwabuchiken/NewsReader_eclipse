@@ -595,7 +595,8 @@ class ArticlesController < ApplicationController
   def try_nokogiri_12
     # Get doc
     #docs = get_docs(3)
-    docs = get_docs(1)
+    #docs = get_docs(1)
+    docs = get_docs(5)
     
     #meta_tags
     meta_tags = nil
