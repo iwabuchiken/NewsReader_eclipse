@@ -10,9 +10,14 @@ class ArticlesController < ApplicationController
     
     @articles = Article.all
 
-    @try = "try_nokogiri_11"
+    @try = "try_nokogiri_12"
       
-    @html = try_nokogiri_11    # Modify link
+    @html = try_nokogiri_12    # Modify link
+
+#    @try = "try_nokogiri_11"
+      
+    #@html = try_nokogiri_11    # Modify link
+
 
 #    @try = "try_nokogiri_10"
       
@@ -585,6 +590,59 @@ class ArticlesController < ApplicationController
 #    return docs
     
   end#def try_nokogiri_11
+
+  # ============ try 12 ========================
+  def try_nokogiri_12
+    # Get doc
+    #docs = get_docs(3)
+    docs = get_docs(1)
+    
+    #meta_tags
+    meta_tags = nil
+    
+    # Modify
+    docs.each do |doc|
+      #--------------------
+      # Modify 'a' tags
+      #--------------------
+      
+      # Get 'a' tags
+      a_tags = doc.css("div ul li a")
+      
+      # href value
+      a_tags.each do |a_tag|
+        if a_tag['href'].start_with?("/hl?")
+          a_tag['href'] = "http://headlines.yahoo.co.jp" + a_tag['href']
+        end
+      end
+      
+      #--------------------
+      # Modify 'charset' value
+      #--------------------
+      
+      # Get 'meta' tags
+      meta_tags = doc.css("//meta")
+      
+      #debug
+#      return meta_tags
+      
+      # Include?
+      meta_tags.each do |meta_tag|
+        #if meta_tag['content'] == "text/html; charset=euc-jp"
+        if meta_tag['content'].include?("text/html; charset=euc-jp")
+          meta_tag['content'] = "text/html; charset=utf-8"
+        end
+      end
+#      
+    end#docs.each do |doc|
+    
+    #debug
+#    return meta_tags
+    
+#    
+    return docs
+    
+  end#def try_nokogiri_12
 
 end#class ArticlesController < ApplicationController
 

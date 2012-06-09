@@ -49,9 +49,22 @@
 <%= @try %><br/>
 <br/>
 
+<%= @html.length %>
 <% @html.each do |item| %>
 	<%= raw item.to_html %>
 <% end %>
+
+<br/>
+
+<% @html.each do |html| %>
+	<% if html['content'] == "text/html; charset=euc-jp" %>
+		<% html['content'] = "text/html; charset=utf-8" %>
+	<% end %>
+	<%= html['content'] %><br/>
+	<%# end %>
+<% end %>
+
+
 <%# @html.each do |a_tag| %>
 	<%#= a_tag.content %><br/>
 <%# end %>
