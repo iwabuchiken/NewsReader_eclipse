@@ -1,3 +1,11 @@
+a
+cd C:\WORKS\WORKSPACES_APTANA\NewsReader_eclipse
+gitk
+
+a
+cd C:\WORKS\WORKSPACES_APTANA\NewsReader_eclipse
+r s
+
 [Set up 20120529_173711]----------------------------
 rails new NewsReader
 
