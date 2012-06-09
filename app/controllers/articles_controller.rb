@@ -10,9 +10,13 @@ class ArticlesController < ApplicationController
     
     @articles = Article.all
 
-    @try = "try_nokogiri_10"
+    @try = "try_nokogiri_11"
       
-    @html = try_nokogiri_10    # Use thread => 5 pages
+    @html = try_nokogiri_11    # Modify link
+
+#    @try = "try_nokogiri_10"
+      
+ #   @html = try_nokogiri_10    # Use thread => 5 pages
 
     # @try = "try_nokogiri_9"
 #       
@@ -442,7 +446,7 @@ class ArticlesController < ApplicationController
     # return docs
     
   end#def try_nokogiri_9
-  
+
   # ============ try 10 ========================
   def try_nokogiri_10
     # Get params
@@ -482,6 +486,105 @@ class ArticlesController < ApplicationController
     return docs
     
   end#def try_nokogiri_10
+  
+  # ============ try 11 ========================
+  def get_docs(number)
+        # Get params
+    genre = params['genre']
+    
+    # Urls
+    if genre != nil
+      # url = "http://headlines.yahoo.co.jp/hl?c=soci&t=l&p="
+      url = "http://headlines.yahoo.co.jp/hl?c=#{genre}&t=l&p="
+    else
+      url = "http://headlines.yahoo.co.jp/hl?c=soci&t=l&p="
+    end
+    
+    # HTML docs
+    docs = []
+    
+    # Thread array
+    threads = []
+    
+    # Get docs
+    # 2.times do |i|
+    number.times do |i|
+      # Get docs
+      threads << Thread.start(i, url) do
+        # puts "Thred #{i.to_s}: " + urls[i] 
+        # docs[i] = Nokogiri::HTML(open(urls[i]))
+        docs[i] = Nokogiri::HTML(open(url + (i + 1).to_s))
+      end
+    
+      # Join
+      threads.each do |t|
+        t.join
+      end
+    end
+    
+    # Return
+    return docs
+
+  end#def get_docs(number)
+  
+  def try_nokogiri_11
+    # Get doc
+    #docs = get_docs(3)
+    docs = get_docs(1)
+    
+    # Modify
+    docs.each do |doc|
+      # Get 'a' tags
+      a_tags = doc.css("div ul li a")
+      
+      # href value
+      a_tags.each do |a_tag|
+        if a_tag['href'].start_with?("/hl?")
+          a_tag['href'] = "http://headlines.yahoo.co.jp" + a_tag['href']
+        end
+      end
+      
+    end
+    
+    return docs
+    
+#    # Get params
+#    genre = params['genre']
+#    
+#    # Urls
+#    if genre != nil
+#      # url = "http://headlines.yahoo.co.jp/hl?c=soci&t=l&p="
+#      url = "http://headlines.yahoo.co.jp/hl?c=#{genre}&t=l&p="
+#    else
+#      url = "http://headlines.yahoo.co.jp/hl?c=soci&t=l&p="
+#    end
+#    
+#    # HTML docs
+#    docs = []
+#    
+#    # Thread array
+#    threads = []
+#    
+#    # Get docs
+#    # 2.times do |i|
+#    5.times do |i|
+#      # Get docs
+#      threads << Thread.start(i, url) do
+#        # puts "Thred #{i.to_s}: " + urls[i] 
+#        # docs[i] = Nokogiri::HTML(open(urls[i]))
+#        docs[i] = Nokogiri::HTML(open(url + (i + 1).to_s))
+#      end
+#    
+#      # Join
+#      threads.each do |t|
+#        t.join
+#      end
+#    end
+#    
+#    # Return
+#    return docs
+    
+  end#def try_nokogiri_11
 
 end#class ArticlesController < ApplicationController
 
