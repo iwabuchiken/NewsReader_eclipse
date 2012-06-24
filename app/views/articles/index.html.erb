@@ -14,10 +14,15 @@
 			:action => "index", 
 			:genre => "int" %>
 </div>
-<hr/>
 
-<div>
-	USA<br/>
+<!-- USA -------------------->
+<hr/>
+	<% @categories.each do |category| %>
+		<a href="#<%= category%>"><%= category %></a> | 
+	<% end %>
+<hr/>
+<div id="<%= @categories[0] %>">
+	<%= @categories[0] %> (<%= @objects[0].size %> items)
 </div>
 <hr/>
 
@@ -28,15 +33,16 @@
 			<%#= raw item[0] %>
 			<%#= raw article %>
 			<%= raw item %><br/>
+			<%#= item.content %>
 		</div>
 	<%# end %>
 <% end %>
 <br/>
 
+<!-- China -------------------->
 <hr/>
-
-<div>
-	China<br/>
+<div id="<%= @categories[1] %>">
+	<%= @categories[1] %> (<%= @objects[1].length %> items)
 </div>
 <hr/>
 
@@ -47,13 +53,15 @@
 			<%#= raw item[0] %>
 			<%#= raw article %>
 			<%= raw item %><br/>
+			<%#= item.content %>
 		</div>
 	<%# end %>
 <% end %>
 
+<!-- Europe -------------------->
 <hr/>
-<div>
-	Others<br/>
+<div id="<%= @categories[2] %>">
+	<%= @categories[2] %> (<%= @objects[2].size %> items)
 </div>
 <hr/>
 
@@ -64,6 +72,27 @@
 			<%#= raw item[0] %>
 			<%#= raw article %>
 			<%= raw item %><br/>
+			<%#= item.content %>
+		</div>
+	<%# end %>
+<% end %>
+
+
+<!-- Others -------------------->
+<hr/>
+<div id="<%= @categories[3] %>">
+	<%= @categories[3] %> (<%= @objects[3].size %> items)
+</div>
+<hr/>
+
+<% @objects[3].each do |item| %>
+	<%#= raw item.to_html %>
+	<%# item.each do |article| %>
+		<div style="line-height: 250%;">
+			<%#= raw item[0] %>
+			<%#= raw article %>
+			<%= raw item %><br/>
+			<%#= item.content %>
 		</div>
 	<%# end %>
 <% end %>
