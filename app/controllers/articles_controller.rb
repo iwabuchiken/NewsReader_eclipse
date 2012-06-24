@@ -9,11 +9,15 @@ class ArticlesController < ApplicationController
   # @categories = []
     
   def index
-    # require NokoLib
     
-    @try = "try_nokogiri_15"
-      
-    @objects = try_nokogiri_15    # Modify link
+    @objects = try_nokogiri_16    # Modify link
+
+    #=================================
+    
+    
+    # @try = "try_nokogiri_15"
+#       
+    # @objects = try_nokogiri_15    # Modify link
 
     #=================================
     
@@ -1053,6 +1057,203 @@ class ArticlesController < ApplicationController
     # return docs_new
     
   end#def try_nokogiri_15
+
+  # ============ try 16 ========================
+  def categorize_overseas_try16(a_tags)
+    #######################
+    # Steps
+    # 1. 
+    
+    
+    #######################
+    # 1.
+    cat_usa = []; cat_china = [];
+    cat_europe = []; cat_korea = [];
+    cat_me = []; 
+    cat_others = [];
+    
+    # 
+    a_tags_categorized = []
+    
+    #
+    kw_usa = ["アメリカ", "米国", "米"] 
+    # kw_usa = [u"アメリカ", u"米国", u"米"]gs.each do |a_tag|
+    
+    kw_china = ["中国"]
+    
+    kw_europe = ["ヨーロッパ", "欧州", "フランス", "ドイツ", "イギリス", "欧", "EU", "ギリシャ"]
+    
+    kw_korea = ["韓国", "韓", "朝鮮"]
+    
+    kw_me = ["中東", "シリア", "ヨルダン", "イラク", "イラン", "エジプト"]
+    
+    #
+    a_tags.each do |a_tag|
+      #=============================
+      # 1. USA
+      # 2. China
+      # 3. Europe
+      # 4. Korea
+      # 5. Middle East
+      # 6. India
+      # 0. Others
+      #=============================
+      # Flag
+      is_in = false
+      
+      #
+      kw_usa.each do |word|
+        #
+        if a_tag.content.include?(word)
+          cat_usa.push(a_tag)
+          
+          #
+          is_in = true
+          break
+          
+        end#if a_tag.content.include?(word)
+          
+      end#kw_usa.each do |word|
+        # else
+
+      #===================
+      # 2. China
+      #===================
+      kw_china.each do |word|
+        #
+        if a_tag.content.include?(word)
+          cat_china.push(a_tag)
+          
+          #
+          is_in = true
+          break
+          
+        end#if a_tag.content.include?(word)
+          
+      end#kw_usa.each do |word|
+
+      #===================
+      # 3. Europe
+      #===================
+      kw_europe.each do |word|
+        #
+        if a_tag.content.include?(word)
+          cat_europe.push(a_tag)
+          
+          #
+          is_in = true
+          break
+          
+        end#if a_tag.content.include?(word)
+          
+      end#kw_europe.each do |word|
+
+      #===================
+      # 4. Korea
+      #===================
+      kw_korea.each do |word|
+        #
+        if a_tag.content.include?(word)
+          cat_europe.push(a_tag)
+          
+          #
+          is_in = true
+          break
+          
+        end#if a_tag.content.include?(word)
+          
+      end#kw_europe.each do |word|
+
+      #===================
+      # 5. Middle East
+      #===================
+      kw_me.each do |word|
+        #
+        if a_tag.content.include?(word)
+          cat_europe.push(a_tag)
+          
+          #
+          is_in = true
+          break
+          
+        end#if a_tag.content.include?(word)
+          
+      end#kw_europe.each do |word|
+      
+      #===================
+      # 
+      #===================
+      if is_in == false
+        cat_others.push(a_tag)
+      end#if is_in == false
+          
+        # end#if a_tag.content.include?(word)
+      # end#kw_usa.each do |word|
+    end#a_tags.each do |a_tag|
+      
+    # Return
+    return [cat_usa, cat_china, cat_europe, cat_others]    
+  end#def categorize_overseas(a_tags)
+
+
+  def try_nokogiri_16
+    ###########################
+    # Steps
+    # 1. Get categories
+    # 2. Get docs
+    # 3. Get a_tags    
+    ###########################
+    
+    #=====================
+    # 1. Get categories
+    #=====================
+    # Param
+    @genre = params['genre']
+
+    # Switch
+    if @genre == "soci"
+      @categories = ["USA", "China", "Europe", "Others"]
+        # @categories = ["Nuc plants", "Others"]
+    elsif @genre == "int"
+        # @categories = ["USA", "China", "Europe", "Others"]
+        @categories = \
+              ["USA", "China", "Europe", "Korea",
+                    "Middle East", "India", "Others"]
+    elsif @genre == "bus_all"
+        @categories = ["USA", "China", "Europe", "Others"]
+    else
+      @categories = ["USA", "China", "Europe", "Others"]
+      # render "Unknown category: " + @genre
+    end#if @genre == "soci"
+    
+    #=====================
+    # 2. Get docs
+    #=====================
+    # Get doc
+    docs = get_docs(5)
+
+    #=====================
+    # 3. Get a_tags
+    #=====================
+    a_tags = get_atags(docs)
+    
+    
+    # Categorize
+    # a_tags_categorized = categorize_atags(a_tags)
+    a_tags_categorized = categorize_overseas_try16(a_tags)
+    
+    # Return
+    # return a_tags
+    return a_tags_categorized
+    
+    #debug
+#    return meta_tags
+    
+#    
+    # return docs
+    # return docs_new
+    
+  end#def try_nokogiri_16
 
 end#class ArticlesController < ApplicationController
 
