@@ -1,4 +1,12 @@
-<h1>Listing articles</h1>
+<h1>
+	<% if @genre == "soci" %>
+		Society
+	<% elsif @genre == "int" %>
+		Overseas
+	<% elsif @genre == "bus_all" %>
+		Economy
+	<% end %>
+</h1>
 
 <div>
 	<%= link_to 'Society', 
@@ -15,12 +23,13 @@
 			:genre => "int" %>
 </div>
 
-<!-- USA -------------------->
 <hr/>
 	<% @categories.each do |category| %>
 		<a href="#<%= category%>"><%= category %></a> | 
 	<% end %>
 <hr/>
+
+<!-- USA -------------------->
 <div id="<%= @categories[0] %>">
 	<%= @categories[0] %> (<%= @objects[0].size %> items)
 </div>
