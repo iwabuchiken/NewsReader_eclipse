@@ -1059,7 +1059,90 @@ class ArticlesController < ApplicationController
   end#def try_nokogiri_15
 
   # ============ try 16 ========================
-  def categorize_overseas_try16(a_tags)
+  def categorize_try16_others(a_tags)
+    #######################
+    # Steps
+    # 1. 
+    
+    
+    #######################
+    # 1.
+    cat_usa = []; cat_china = [];
+    cat_europe = []; cat_others = [];
+    
+    # 
+    a_tags_categorized = []
+    
+    #
+    kw_usa = ["アメリカ", "米国", "米"] 
+    # kw_usa = [u"アメリカ", u"米国", u"米"]gs.each do |a_tag|
+    
+    kw_china = ["中国"]
+    
+    kw_europe = ["ヨーロッパ", "欧州", "フランス", "ドイツ", "イギリス", "欧", "EU", "ギリシャ"]
+    
+    #
+    a_tags.each do |a_tag|
+      # Flag
+      is_in = false
+      
+      #
+      kw_usa.each do |word|
+        #
+        if a_tag.content.include?(word)
+          cat_usa.push(a_tag)
+          
+          #
+          is_in = true
+          break
+          
+        end#if a_tag.content.include?(word)
+          
+      end#kw_usa.each do |word|
+        # else
+
+      #
+      kw_china.each do |word|
+        #
+        if a_tag.content.include?(word)
+          cat_china.push(a_tag)
+          
+          #
+          is_in = true
+          break
+          
+        end#if a_tag.content.include?(word)
+          
+      end#kw_usa.each do |word|
+
+      #
+      kw_europe.each do |word|
+        #
+        if a_tag.content.include?(word)
+          cat_europe.push(a_tag)
+          
+          #
+          is_in = true
+          break
+          
+        end#if a_tag.content.include?(word)
+          
+      end#kw_europe.each do |word|
+
+      #
+      if is_in == false
+        cat_others.push(a_tag)
+      end#if is_in == false
+          
+        # end#if a_tag.content.include?(word)
+      # end#kw_usa.each do |word|
+    end#a_tags.each do |a_tag|
+      
+    # Return
+    return [cat_usa, cat_china, cat_europe, cat_others]    
+  end#def categorize_try16_others(a_tags)
+  
+  def categorize_try16_overseas(a_tags)
     #######################
     # Steps
     # 1. 
@@ -1235,6 +1318,27 @@ class ArticlesController < ApplicationController
               cat_others]    
   end#def categorize_overseas(a_tags)
 
+  def categorize_try16(a_tags)
+    #######################
+    # Steps
+    # 1. 
+    
+    
+    #######################
+    # Param
+    @genre = params['genre']
+
+    # Switching
+    if @genre == "int"
+      a_tags_categorized = categorize_try16_overseas(a_tags)
+    else
+      a_tags_categorized = categorize_try16_others(a_tags)
+    end
+    
+    # Return
+    return a_tags_categorized
+    
+  end#def categorize_try16(a_tags)
 
   def try_nokogiri_16
     ###########################
@@ -1280,7 +1384,8 @@ class ArticlesController < ApplicationController
     
     # Categorize
     # a_tags_categorized = categorize_atags(a_tags)
-    a_tags_categorized = categorize_overseas_try16(a_tags)
+    # a_tags_categorized = categorize_overseas_try16(a_tags)
+    a_tags_categorized = categorize_try16(a_tags)
     
     # Return
     # return a_tags
@@ -1305,3 +1410,142 @@ end#class ArticlesController < ApplicationController
       # return Nokogiri::XML(builder.to_xml)
     # end#def get_xml_base
 # end
+
+=begin
+
+<!-- USA -------------------->
+<hr/>
+<div id="<%= @categories[0] %>" class="category" >
+  <%= @categories[0] %> (<%= @objects[0].size %> items)
+</div>
+<hr/>
+
+<% @objects[0].each do |item| %>
+  <%#= raw item.to_html %>
+  <%# item.each do |article| %>
+    <div style="line-height: 250%;">
+      <%#= raw item[0] %>
+      <%#= raw article %>
+      <%= raw item %><br/>
+      <%#= item.content %>
+    </div>
+  <%# end %>
+<% end %>
+<br/>
+
+<!-- China -------------------->
+<hr/>
+<div id="<%= @categories[1] %>" class="category" >
+  <%= @categories[1] %> (<%= @objects[1].length %> items)
+</div>
+<hr/>
+
+<% @objects[1].each do |item| %>
+  <%#= raw item.to_html %>
+  <%# item.each do |article| %>
+    <div style="line-height: 250%;">
+      <%#= raw item[0] %>
+      <%#= raw article %>
+      <%= raw item %><br/>
+      <%#= item.content %>
+    </div>
+  <%# end %>
+<% end %>
+
+<!-- Europe -------------------->
+<hr/>
+<div id="<%= @categories[2] %>" class="category" >
+  <%= @categories[2] %> (<%= @objects[2].size %> items)
+</div>
+<hr/>
+
+<% @objects[2].each do |item| %>
+  <%#= raw item.to_html %>
+  <%# item.each do |article| %>
+    <div style="line-height: 250%;">
+      <%#= raw item[0] %>
+      <%#= raw article %>
+      <%= raw item %><br/>
+      <%#= item.content %>
+    </div>
+  <%# end %>
+<% end %>
+
+<!-- Korea -------------------->
+<hr/>
+<div id="<%= @categories[3] %>" class="category" >
+  <%= @categories[3] %> (<%= @objects[3].size %> items)
+</div>
+<hr/>
+
+<% @objects[3].each do |item| %>
+  <%#= raw item.to_html %>
+  <%# item.each do |article| %>
+    <div style="line-height: 250%;">
+      <%#= raw item[0] %>
+      <%#= raw article %>
+      <%= raw item %><br/>
+      <%#= item.content %>
+    </div>
+  <%# end %>
+<% end %>
+
+<!-- Middle East -------------------->
+<hr/>
+<div id="<%= @categories[4] %>" class="category" >
+  <%= @categories[4] %> (<%= @objects[4].size %> items)
+</div>
+<hr/>
+
+<% @objects[4].each do |item| %>
+  <%#= raw item.to_html %>
+  <%# item.each do |article| %>
+    <div style="line-height: 250%;">
+      <%#= raw item[0] %>
+      <%#= raw article %>
+      <%= raw item %><br/>
+      <%#= item.content %>
+    </div>
+  <%# end %>
+<% end %>
+
+<!-- India -------------------->
+<hr/>
+<div id="<%= @categories[5] %>" class="category" >
+  <%= @categories[5] %> (<%= @objects[5].size %> items)
+</div>
+<hr/>
+
+<% @objects[5].each do |item| %>
+  <%#= raw item.to_html %>
+  <%# item.each do |article| %>
+    <div style="line-height: 250%;">
+      <%#= raw item[0] %>
+      <%#= raw article %>
+      <%= raw item %><br/>
+      <%#= item.content %>
+    </div>
+  <%# end %>
+<% end %>
+
+
+<!-- Others -------------------->
+<hr/>
+<div id="<%= @categories[6] %>" class="category" >
+  <%= @categories[6] %> (<%= @objects[6].size %> items)
+</div>
+<hr/>
+
+<% @objects[6].each do |item| %>
+  <%#= raw item.to_html %>
+  <%# item.each do |article| %>
+    <div style="line-height: 250%;">
+      <%#= raw item[0] %>
+      <%#= raw article %>
+      <%= raw item %><br/>
+      <%#= item.content %>
+    </div>
+  <%# end %>
+<% end %>
+
+=end
