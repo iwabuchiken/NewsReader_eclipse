@@ -32,7 +32,7 @@
 <hr/>
 
 <!-- USA -------------------->
-<div id="<%= @categories[0] %>">
+<div id="<%= @categories[0] %>" class="category" >
 	<%= @categories[0] %> (<%= @objects[0].size %> items)
 </div>
 <hr/>
@@ -52,7 +52,7 @@
 
 <!-- China -------------------->
 <hr/>
-<div id="<%= @categories[1] %>">
+<div id="<%= @categories[1] %>" class="category" >
 	<%= @categories[1] %> (<%= @objects[1].length %> items)
 </div>
 <hr/>
@@ -71,7 +71,7 @@
 
 <!-- Europe -------------------->
 <hr/>
-<div id="<%= @categories[2] %>">
+<div id="<%= @categories[2] %>" class="category" >
 	<%= @categories[2] %> (<%= @objects[2].size %> items)
 </div>
 <hr/>
@@ -88,15 +88,72 @@
 	<%# end %>
 <% end %>
 
-
-<!-- Others -------------------->
+<!-- Korea -------------------->
 <hr/>
-<div id="<%= @categories[3] %>">
+<div id="<%= @categories[3] %>" class="category" >
 	<%= @categories[3] %> (<%= @objects[3].size %> items)
 </div>
 <hr/>
 
 <% @objects[3].each do |item| %>
+	<%#= raw item.to_html %>
+	<%# item.each do |article| %>
+		<div style="line-height: 250%;">
+			<%#= raw item[0] %>
+			<%#= raw article %>
+			<%= raw item %><br/>
+			<%#= item.content %>
+		</div>
+	<%# end %>
+<% end %>
+
+<!-- Middle East -------------------->
+<hr/>
+<div id="<%= @categories[4] %>" class="category" >
+	<%= @categories[4] %> (<%= @objects[4].size %> items)
+</div>
+<hr/>
+
+<% @objects[4].each do |item| %>
+	<%#= raw item.to_html %>
+	<%# item.each do |article| %>
+		<div style="line-height: 250%;">
+			<%#= raw item[0] %>
+			<%#= raw article %>
+			<%= raw item %><br/>
+			<%#= item.content %>
+		</div>
+	<%# end %>
+<% end %>
+
+<!-- India -------------------->
+<hr/>
+<div id="<%= @categories[5] %>" class="category" >
+	<%= @categories[5] %> (<%= @objects[5].size %> items)
+</div>
+<hr/>
+
+<% @objects[5].each do |item| %>
+	<%#= raw item.to_html %>
+	<%# item.each do |article| %>
+		<div style="line-height: 250%;">
+			<%#= raw item[0] %>
+			<%#= raw article %>
+			<%= raw item %><br/>
+			<%#= item.content %>
+		</div>
+	<%# end %>
+<% end %>
+
+
+<!-- Others -------------------->
+<hr/>
+<div id="<%= @categories[6] %>" class="category" >
+	<%= @categories[6] %> (<%= @objects[6].size %> items)
+</div>
+<hr/>
+
+<% @objects[6].each do |item| %>
 	<%#= raw item.to_html %>
 	<%# item.each do |article| %>
 		<div style="line-height: 250%;">

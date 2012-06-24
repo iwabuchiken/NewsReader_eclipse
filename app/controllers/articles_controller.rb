@@ -1069,7 +1069,7 @@ class ArticlesController < ApplicationController
     # 1.
     cat_usa = []; cat_china = [];
     cat_europe = []; cat_korea = [];
-    cat_me = []; 
+    cat_me = []; cat_india = []
     cat_others = [];
     
     # 
@@ -1081,11 +1081,32 @@ class ArticlesController < ApplicationController
     
     kw_china = ["中国"]
     
-    kw_europe = ["ヨーロッパ", "欧州", "フランス", "ドイツ", "イギリス", "欧", "EU", "ギリシャ"]
+    kw_europe = [
+            # Countries
+            "フランス", "ドイツ", "イギリス", "ギリシャ", "ロシア", "イタリア",
+            "独", "仏", "英", "伊", "露",
+            # Cities
+            "ベルリン", "パリ", "ロンドン", "モスクワ",
+            # Europe
+            "欧", "欧州", "ヨーロッパ", "EU", "ユーロ" 
+            ]
     
-    kw_korea = ["韓国", "韓", "朝鮮"]
+    kw_korea = [
+            # Countries, Regions
+            "韓国", "韓", "朝鮮",
+            # Cities
+            "ソウル", "ピョンヤン", "平城"
+            ]
     
-    kw_me = ["中東", "シリア", "ヨルダン", "イラク", "イラン", "エジプト"]
+    kw_me = ["中東", 
+              # Countries
+              "シリア", "ヨルダン", "イラク", "イラン", "エジプト",
+              "イスラエル",
+              # Groups
+              "ハマス"
+              ]
+    
+    kw_india = ["インド"]
     
     #
     a_tags.each do |a_tag|
@@ -1154,7 +1175,7 @@ class ArticlesController < ApplicationController
       kw_korea.each do |word|
         #
         if a_tag.content.include?(word)
-          cat_europe.push(a_tag)
+          cat_korea.push(a_tag)
           
           #
           is_in = true
@@ -1170,7 +1191,7 @@ class ArticlesController < ApplicationController
       kw_me.each do |word|
         #
         if a_tag.content.include?(word)
-          cat_europe.push(a_tag)
+          cat_me.push(a_tag)
           
           #
           is_in = true
@@ -1179,7 +1200,24 @@ class ArticlesController < ApplicationController
         end#if a_tag.content.include?(word)
           
       end#kw_europe.each do |word|
-      
+
+      #===================
+      # 6. India
+      #===================
+      kw_india.each do |word|
+        #
+        if a_tag.content.include?(word) \
+            and not a_tag.content.include?("インドネシア")
+          cat_india.push(a_tag)
+          
+          #
+          is_in = true
+          break
+          
+        end#if a_tag.content.include?(word)
+          
+      end#kw_europe.each do |word|
+
       #===================
       # 
       #===================
@@ -1192,7 +1230,9 @@ class ArticlesController < ApplicationController
     end#a_tags.each do |a_tag|
       
     # Return
-    return [cat_usa, cat_china, cat_europe, cat_others]    
+    return [cat_usa, cat_china, cat_europe, 
+              cat_korea, cat_me, cat_india,
+              cat_others]    
   end#def categorize_overseas(a_tags)
 
 
