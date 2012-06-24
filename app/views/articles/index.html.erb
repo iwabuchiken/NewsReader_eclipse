@@ -36,11 +36,28 @@
 <hr/>
 
 <div>
-	Others<br/>
+	China<br/>
 </div>
 <hr/>
 
 <% @objects[1].each do |item| %>
+	<%#= raw item.to_html %>
+	<%# item.each do |article| %>
+		<div style="line-height: 250%;">
+			<%#= raw item[0] %>
+			<%#= raw article %>
+			<%= raw item %><br/>
+		</div>
+	<%# end %>
+<% end %>
+
+<hr/>
+<div>
+	Others<br/>
+</div>
+<hr/>
+
+<% @objects[2].each do |item| %>
 	<%#= raw item.to_html %>
 	<%# item.each do |article| %>
 		<div style="line-height: 250%;">

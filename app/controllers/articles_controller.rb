@@ -796,6 +796,8 @@ class ArticlesController < ApplicationController
     kw_usa = ["アメリカ", "米国", "米"] 
     # kw_usa = [u"アメリカ", u"米国", u"米"]gs.each do |a_tag|
     
+    kw_china = ["中国"]
+    
     #
     a_tags.each do |a_tag|
       # Flag
@@ -815,6 +817,22 @@ class ArticlesController < ApplicationController
           
       end#kw_usa.each do |word|
         # else
+
+      #
+      kw_china.each do |word|
+        #
+        if a_tag.content.include?(word)
+          cat_china.push(a_tag)
+          
+          #
+          is_in = true
+          break
+          
+        end#if a_tag.content.include?(word)
+          
+      end#kw_usa.each do |word|
+
+
       #
       if is_in == false
         cat_others.push(a_tag)
@@ -825,7 +843,7 @@ class ArticlesController < ApplicationController
     end#a_tags.each do |a_tag|
       
     # Return
-    return [cat_usa, cat_others]
+    return [cat_usa, cat_china, cat_others]
     
   end#def categorize_atags(a_tags)
   
