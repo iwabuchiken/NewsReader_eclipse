@@ -16,14 +16,38 @@
 </div>
 <hr/>
 
-<% @html.each do |item| %>
+<div>
+	USA<br/>
+</div>
+<hr/>
+
+<% @objects[0].each do |item| %>
 	<%#= raw item.to_html %>
-	<% item.each do |article| %>
+	<%# item.each do |article| %>
 		<div style="line-height: 250%;">
 			<%#= raw item[0] %>
-			<%= raw article %><br/>
+			<%#= raw article %>
+			<%= raw item %><br/>
 		</div>
-	<% end %>
+	<%# end %>
+<% end %>
+<br/>
+
+<hr/>
+
+<div>
+	Others<br/>
+</div>
+<hr/>
+
+<% @objects[1].each do |item| %>
+	<%#= raw item.to_html %>
+	<%# item.each do |article| %>
+		<div style="line-height: 250%;">
+			<%#= raw item[0] %>
+			<%#= raw article %>
+			<%= raw item %><br/>
+		</div>
+	<%# end %>
 <% end %>
 
-<br/>

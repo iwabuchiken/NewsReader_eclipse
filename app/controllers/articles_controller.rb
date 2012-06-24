@@ -1,3 +1,4 @@
+#coding:utf-8
 require 'basics'
 require 'noko_helper'
 
@@ -10,9 +11,13 @@ class ArticlesController < ApplicationController
     
     @articles = Article.all
 
-    @try = "try_nokogiri_13"
+    @try = "try_nokogiri_14"
       
-    @html = try_nokogiri_13    # Modify link
+    @objects = try_nokogiri_14    # Modify link
+
+    # @try = "try_nokogiri_13"
+#       
+    # @html = try_nokogiri_13    # Modify link
 
 
     # @try = "try_nokogiri_12"
@@ -724,6 +729,127 @@ class ArticlesController < ApplicationController
     return docs_new
     
   end#def try_nokogiri_13
+
+  # ============ try 14 ========================
+  def get_atags(docs)
+#    # Get doc
+#    docs = get_docs(5)
+#    
+#    #meta_tags
+#    meta_tags = nil
+#    
+#    # New docs
+#    docs_new = []
+
+    # href a tags
+    a_tags_href = []
+    
+    # Modify
+    docs.each do |doc|
+      #--------------------
+      # Modify 'a' tags
+      #--------------------
+      
+      # Get 'a' tags
+      a_tags = doc.css("div ul li a")
+      
+      # href value
+      a_tags.each do |a_tag|
+        if a_tag['href'].start_with?("/hl?")
+          # Modify url
+          a_tag['href'] = "http://headlines.yahoo.co.jp" + a_tag['href']
+          
+          # Add
+          a_tags_href.push(a_tag)
+          
+        end#if a_tag['href'].start_with?("/hl?")
+      end#a_tags.each do |a_tag|
+      
+#      # New doc
+#      docs_new.push(a_tags_href)
+      
+      #--------------------
+      # Modify 'charset' value
+      #--------------------
+      
+    end#docs.each do |doc|
+
+    # Return
+    return a_tags_href
+    
+  end#def get_atags
+
+  def categorize_atags(a_tags)
+    #######################
+    # Steps
+    # 1. 
+    
+    
+    #######################
+    # 1.
+    cat_usa = []; cat_china = []; cat_others = [];
+    
+    # 
+    a_tags_categorized = []
+    
+    #
+    kw_usa = ["アメリカ", "米国", "米"] 
+    # kw_usa = [u"アメリカ", u"米国", u"米"]gs.each do |a_tag|
+    
+    #
+    a_tags.each do |a_tag|
+      # Flag
+      is_in = false
+      
+      #
+      kw_usa.each do |word|
+        #
+        if a_tag.content.include?(word)
+          cat_usa.push(a_tag)
+          
+          #
+          is_in = true
+          break
+          
+        end#if a_tag.content.include?(word)
+          
+      end#kw_usa.each do |word|
+        # else
+      #
+      if is_in == false
+        cat_others.push(a_tag)
+      end#if is_in == false
+          
+        # end#if a_tag.content.include?(word)
+      # end#kw_usa.each do |word|
+    end#a_tags.each do |a_tag|
+      
+    # Return
+    return [cat_usa, cat_others]
+    
+  end#def categorize_atags(a_tags)
+  
+  def try_nokogiri_14
+    # Get doc
+    docs = get_docs(5)
+
+    a_tags = get_atags(docs)
+    
+    # Categorize
+    a_tags_categorized = categorize_atags(a_tags)
+    
+    # Return
+    # return a_tags
+    return a_tags_categorized
+    
+    #debug
+#    return meta_tags
+    
+#    
+    # return docs
+    # return docs_new
+    
+  end#def try_nokogiri_14
 
 end#class ArticlesController < ApplicationController
 
