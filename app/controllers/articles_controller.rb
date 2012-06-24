@@ -10,9 +10,14 @@ class ArticlesController < ApplicationController
     
     @articles = Article.all
 
-    @try = "try_nokogiri_12"
+    @try = "try_nokogiri_13"
       
-    @html = try_nokogiri_12    # Modify link
+    @html = try_nokogiri_13    # Modify link
+
+
+    # @try = "try_nokogiri_12"
+#       
+    # @html = try_nokogiri_12    # Modify link
 
 #    @try = "try_nokogiri_11"
       
@@ -601,6 +606,9 @@ class ArticlesController < ApplicationController
     #meta_tags
     meta_tags = nil
     
+    # New docs
+    docs_new = []
+    
     # Modify
     docs.each do |doc|
       #--------------------
@@ -613,9 +621,11 @@ class ArticlesController < ApplicationController
       # href value
       a_tags.each do |a_tag|
         if a_tag['href'].start_with?("/hl?")
+          # Modify url
           a_tag['href'] = "http://headlines.yahoo.co.jp" + a_tag['href']
-        end
-      end
+          
+        end#if a_tag['href'].start_with?("/hl?")
+      end#a_tags.each do |a_tag|
       
       #--------------------
       # Modify 'charset' value
@@ -642,8 +652,78 @@ class ArticlesController < ApplicationController
     
 #    
     return docs
+    # return docs_new
     
   end#def try_nokogiri_12
+
+  # ============ try 13 ========================
+  def try_nokogiri_13
+    # Get doc
+    #docs = get_docs(3)
+    #docs = get_docs(1)
+    docs = get_docs(5)
+    
+    #meta_tags
+    meta_tags = nil
+    
+    # New docs
+    docs_new = []
+    
+    # Modify
+    docs.each do |doc|
+      #--------------------
+      # Modify 'a' tags
+      #--------------------
+      
+      # Get 'a' tags
+      a_tags = doc.css("div ul li a")
+      
+      # href a tags
+      a_tags_href = []
+      
+      # href value
+      a_tags.each do |a_tag|
+        if a_tag['href'].start_with?("/hl?")
+          # Modify url
+          a_tag['href'] = "http://headlines.yahoo.co.jp" + a_tag['href']
+          
+          # Add
+          a_tags_href.push(a_tag)
+          
+        end#if a_tag['href'].start_with?("/hl?")
+      end#a_tags.each do |a_tag|
+      
+      # New doc
+      docs_new.push(a_tags_href)
+      
+      #--------------------
+      # Modify 'charset' value
+      #--------------------
+      
+      # Get 'meta' tags
+      meta_tags = doc.css("//meta")
+      
+      #debug
+#      return meta_tags
+      
+      # Include?
+      meta_tags.each do |meta_tag|
+        #if meta_tag['content'] == "text/html; charset=euc-jp"
+        if meta_tag['content'].include?("text/html; charset=euc-jp")
+          meta_tag['content'] = "text/html; charset=utf-8"
+        end
+      end
+#      
+    end#docs.each do |doc|
+    
+    #debug
+#    return meta_tags
+    
+#    
+    # return docs
+    return docs_new
+    
+  end#def try_nokogiri_13
 
 end#class ArticlesController < ApplicationController
 

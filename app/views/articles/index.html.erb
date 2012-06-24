@@ -16,64 +16,14 @@
 </div>
 <hr/>
 
-<table>
-  <tr>
-    <th>Hl</th>
-    <th>Src</th>
-    <th>Link</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @articles.each do |article| %>
-  <tr>
-    <td><%= article.hl %></td>
-    <td><%= article.src %></td>
-    <td><%= article.link %></td>
-    <td><%= link_to 'Show', article %></td>
-    <td><%= link_to 'Edit', edit_article_path(article) %></td>
-    <td><%= link_to 'Destroy', article, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New Article', new_article_path %>
-
-<%= raw show_message "Hi" %><br/>
-<br/>
-
-@html.class => <%= @html.class %><br/>
-<%= @try %><br/>
-<br/>
-
-<%= @html.length %>
 <% @html.each do |item| %>
-	<%= raw item.to_html %>
+	<%#= raw item.to_html %>
+	<% item.each do |article| %>
+		<div style="line-height: 250%;">
+			<%#= raw item[0] %>
+			<%= raw article %><br/>
+		</div>
+	<% end %>
 <% end %>
 
 <br/>
-
-<% @html.each do |html| %>
-	<% if html['content'] == "text/html; charset=euc-jp" %>
-		<% html['content'] = "text/html; charset=utf-8" %>
-	<% end %>
-	<%= html['content'] %><br/>
-	<%# end %>
-<% end %>
-
-
-<%# @html.each do |a_tag| %>
-	<%#= a_tag.content %><br/>
-<%# end %>
-
-<%#= raw @html.to_html %>
-<!-- :save_with => Nokogiri::XML::Node::SaveOptions::FORMAT|AS_XML).class %><br/> -->
-<%#= a_tag.content %><br/>
-<%#= @xml.to_xml %>
-
-<%#= @xml_base.class %><br/>
-<%#= @noko_node.class %><br/>
-<%#= raw @xml_base_xml %><br/>
