@@ -1014,13 +1014,15 @@ class ArticlesController < ApplicationController
 
     # Switch
     if @genre == "soci"
-        @categories = ["Nuc plants", "Others"]
+      @categories = ["USA", "China", "Europe", "Others"]
+        # @categories = ["Nuc plants", "Others"]
     elsif @genre == "int"
         @categories = ["USA", "China", "Europe", "Others"]
     elsif @genre == "bus_all"
         @categories = ["USA", "China", "Europe", "Others"]
     else
-      render "Unknown category: " + @genre
+      @categories = ["USA", "China", "Europe", "Others"]
+      # render "Unknown category: " + @genre
     end#if @genre == "soci"
     
     #=====================
